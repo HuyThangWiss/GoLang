@@ -1,0 +1,19 @@
+func B55(cin *gin.Context)  {
+	c := http.Client{Timeout: time.Duration(1) * time.Second}
+	req, err := http.NewRequest("GET", "http://localhost:8080/api/Select", nil)
+	if err != nil {
+		fmt.Printf("error %s", err)
+		return
+	}
+	req.Header.Add("User", `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYXN2IjoiMDA1IiwicGFzc3dvcmRzdiI6IjEyMzQ1NjciLCJleHAiOjE2NjM5Mzc3NjEsImlhdCI6MTY2MzY3ODU2MX0.D8hAZCzSUKF7Ztc7EPa8UssshkGaz56r9g7rthMkzvg`)
+	resp, err := c.Do(req)
+	if err != nil {
+		fmt.Printf("error %s", err)
+		return
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	//fmt.Printf("Body : %s", body)
+	bI,_ := json.MarshalIndent(body,"","")
+	cin.JSON(http.StatusOK,gin.H{"Data  ": string(bI)})
+}
