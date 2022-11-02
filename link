@@ -1,1 +1,9 @@
 https://xuanthulab.net/su-dung-relativelayout-trong-android.html
+social := Social{Facebook: "https://facebook.com", Twitter: "https://twitter.com"}
+user := User{Name: "LanKa", Type: "Author", Age: 25, Social: social}
+
+byteArray, err := json.MarshalIndent(user, "", "  ")
+if err != nil {
+   fmt.Println(err)
+}
+fmt.Println(string(byteArray))
